@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .registration-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .registration-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .registration-header h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .registration-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: #999;
+        }
+
+        .password-strength {
+            height: 4px;
+            background: #eee;
+            margin-top: 8px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: #ff4757;
+            transition: width 0.3s;
+        }
+
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+
+        .terms-group input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .terms-group label {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .terms-group a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .terms-group a:hover {
+            text-decoration: underline;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .register-button:hover {
+            background: linear-gradient(to right, #5a6fd1, #6a4299);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .registration-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-header">
+            <h2>Create Your Account</h2>
+            <p>Join our community today</p>
+        </div>
+        
+        <form action="/register" method="post" id="loginForm">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" required>
+                <span class="input-icon">👤</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                <span class="input-icon">✉️</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required minlength="4">
+                <span class="input-icon">🔹</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required minlength="8">
+                <span class="input-icon">🔒</span>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="password-strength-bar"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <span class="input-icon">🔒</span>
+            </div>
+            
+            <div class="terms-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="register-button">Register Now</button>
+            
+            <div class="login-link">
+                Already have an account? <a href="index.html">Sign in</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Simple password strength indicator
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('password-strength-bar');
+        
+        passwordInput.addEventListener('input', function() {
+            const strength = calculatePasswordStrength(this.value);
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 30) {
+                strengthBar.style.backgroundColor = '#ff4757';
+            } else if (strength < 70) {
+                strengthBar.style.backgroundColor = '#ffa502';
+            } else {
+                strengthBar.style.backgroundColor = '#2ed573';
+            }
+        });
+        
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            
+            // Length contributes up to 40%
+            strength += Math.min(password.length / 20 * 40, 40);
+            
+            // Character variety contributes up to 60%
+            if (/[A-Z]/.test(password)) strength += 10;
+            if (/[0-9]/.test(password)) strength += 10;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 10;
+            
+            // Repeated patterns reduce strength
+            if (/(.)\1{2,}/.test(password)) strength -= 15;
+            
+            return Math.min(Math.max(strength, 0), 100);
+        }
+        <script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  if (password === "admin123" && username === "admin") {
+    loginSuccess();
+  } else {
+    alert("invalid detail");
+  }
+});
+
+function loginSuccess() {
+  window.location.href = "DivHover.html";
+}
+</script>
+    </script>
+</body>
+</html>
